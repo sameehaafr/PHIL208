@@ -111,16 +111,57 @@ file_path = 'Ethics Project Form (Responses) - Form Responses 1.csv'
 insurance_col = pd.read_csv(file_path, usecols=["What’s your healthcare insurance provider?"])
 insurance_options = sum(hospital_insurance_mapping.values(), [])  # Flatten the list of all insurances
 
+# # Streamlit app
+# st.title("Insurance Provider to Hospitals Mapping")
+
+# # Examples of Input
+
+# # User input for insurance provider
+# user_input = st.text_input("Enter your healthcare insurance provider:")
+
+# # Find the best insurance match and get hospitals
+# best_insurance_match = find_best_insurance_match(user_input, insurance_options)
+# hospitals = get_hospitals_for_insurance(best_insurance_match, hospital_insurance_mapping)
+
+# # Display results
+# if best_insurance_match is None:
+#     st.warning("No close match found for your insurance. Suggested option: Emergency Care")
+# else:
+#     st.success(f"Best insurance match: {best_insurance_match}")
+#     st.success(f"Hospitals that accept this insurance: {', '.join(hospitals)}")
+
+# # Assuming you have a list of options for the dropdown
+# options = ["Option 1", "Option 2", "Option 3", "Option 4"]
+
+# # Add a dropdown menu
+# selected_option = st.selectbox("Select an option", options)
+
+# # Add a search feature using fuzzy matching
+# search_query = st.text_input("Search option:")
+# if search_query:
+#     # Use fuzzywuzzy to find the closest match
+#     matched_option, score = process.extractOne(search_query, options)
+#     st.write(f"Closest match: {matched_option} (Score: {score})")
+
+# # Display the selected option in the chat box
+# st.text_area("Chat Box", f"You selected: {selected_option}")
+
 # Streamlit app
 st.title("Insurance Provider to Hospitals Mapping")
 
-# Examples of Input
+# User input for insurance provider (dropdown menu)
+selected_insurance = st.selectbox("Select your healthcare insurance provider:", insurance_options)
 
-# User input for insurance provider
-user_input = st.text_input("Enter your healthcare insurance provider:")
+# Search feature
+search_input = st.text_input("Search for an insurance provider:")
+filtered_insurance_options = [option for option in insurance_options if search_input.lower() in option.lower()]
+
+# Display filtered options
+st.write("Filtered Insurance Options:")
+st.write(filtered_insurance_options)
 
 # Find the best insurance match and get hospitals
-best_insurance_match = find_best_insurance_match(user_input, insurance_options)
+best_insurance_match = find_best_insurance_match(selected_insurance, insurance_options)
 hospitals = get_hospitals_for_insurance(best_insurance_match, hospital_insurance_mapping)
 
 # Display results
@@ -130,18 +171,4 @@ else:
     st.success(f"Best insurance match: {best_insurance_match}")
     st.success(f"Hospitals that accept this insurance: {', '.join(hospitals)}")
 
-# Assuming you have a list of options for the dropdown
-options = ["Option 1", "Option 2", "Option 3", "Option 4"]
 
-# Add a dropdown menu
-selected_option = st.selectbox("Select an option", options)
-
-# Add a search feature using fuzzy matching
-search_query = st.text_input("Search option:")
-if search_query:
-    # Use fuzzywuzzy to find the closest match
-    matched_option, score = process.extractOne(search_query, options)
-    st.write(f"Closest match: {matched_option} (Score: {score})")
-
-# Display the selected option in the chat box
-st.text_area("Chat Box", f"You selected: {selected_option}")
