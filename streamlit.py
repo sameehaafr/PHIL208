@@ -117,9 +117,9 @@ st.title("Insurance Provider to Hospitals Mapping")
 # User input for insurance provider (dropdown menu)
 selected_insurance = st.selectbox("Select your healthcare insurance provider:", insurance_options)
 
-# Display filtered options
-st.write("Filtered Insurance Options:")
-st.write(filtered_insurance_options)
+# # Search feature
+# search_input = st.text_input("Search for an insurance provider:")
+# filtered_insurance_options = [option for option in insurance_options if search_input.lower() in option.lower()]
 
 # Find the best insurance match and get hospitals
 best_insurance_match = find_best_insurance_match(selected_insurance, insurance_options)
