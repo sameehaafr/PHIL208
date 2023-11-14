@@ -112,7 +112,7 @@ insurance_col = pd.read_csv(file_path, usecols=["What’s your healthcare insura
 insurance_options = sum(hospital_insurance_mapping.values(), [])  # Flatten the list of all insurances
 
 # Streamlit app
-st.title("Mapping Your Insurance Provider to Nearby Hospitals (West Lafayette/Lafayette)")
+st.title("Mapping Your Insurance Provider to Nearby Hospitals")
 
 # User input for insurance provider (dropdown menu)
 selected_insurance = st.selectbox("Select your healthcare insurance provider:", insurance_options)
